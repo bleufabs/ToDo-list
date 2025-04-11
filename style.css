@@ -1,0 +1,62 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	box-sizing: border-box;
+}
+
+.container {
+	width: 100%;
+	min-height: 100vh;
+	background: rgb(87, 87, 151); 
+	padding: 12px;
+}
+
+.taskflow-manager {
+	width: 100%;
+	max-width: 500px;
+	background: rgba(244, 241, 221, 0.948);
+	margin: 100px auto 30px; 
+	padding: 50px 40px 80px; 
+	border-radius: 15px;
+}
+.taskflow-manager h2{
+	color:rgb(21, 61, 125);
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+.row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: #edeef0;
+	border-radius: 25px;
+	padding-left: 20px; 
+	margin-bottom: 25px; 
+}
+
+input {
+	flex: 1;
+	border: none;
+	outline-style: none;
+	background: transparent;
+	padding: 10px; 
+	font-weight: bold; 
+}
+
+button {
+	border: none;
+	outline: none;
+	padding: 15px 35px;
+	background: hsl(182, 68%, 29%);
+	color: #fff;
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 40px;
+	transition: background 0.3s ease;
+}
+button:hover {
+	background: hwb(183 50% 15%);
+}
+
