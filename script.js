@@ -22,7 +22,7 @@ function addTask() {
 
     //Complete button
     const completeButton = document.createElement("button");
-    completeButton.innerText = "✅";
+    completeButton.innerText = "OK";
     completeButton.className = "task-button";
 
     completeButton.onclick = function () {
@@ -31,7 +31,7 @@ function addTask() {
 
     //Edit button
     const editButton = document.createElement("button");
-    editButton.innerText = "✏️";
+    editButton.innerText = "Edit";
     editButton.className = "task-button";
 
     editButton.onclick = function () {
@@ -46,7 +46,7 @@ function addTask() {
 
     //Delete button
     const deleteButton = document.createElement("button");
-    deleteButton.innerText = "🗑";
+    deleteButton.innerText = "Delete";
     deleteButton.className = "task-button";
 
     deleteButton.onclick = function () {
