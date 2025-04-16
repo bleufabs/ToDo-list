@@ -4,13 +4,16 @@ Task-Flow Manager
 This application has been designed to assist people with organizing and managing their tasks. It allows users to set the priority level of their tasks and upon completion will be rewarded with points to be competed against users on daily leaderboards.
  
  Code Language
- Front- End is developed utilizing html, css and Javascript. 
- Back - End is developed utilizing Java.
+ Front-End is developed utilizing HTML, CSS, and JavaScript. 
+ Back-End is developed utilizing Java.
 
- Instruction to run Application
- 1. Ensure Node Package Manager (npm) is installed by running the command: npm-
- 2. If you need to install npm, install Node.js from official site or could use a Node version manager. 
- 3. You can also install npm using npm install -g npm, although you can run into permission issues. So it is a good practise to use Node version manager. 
+ Instructions to run the Web application in GitHub Codespaces
+ 1. Ensure Node Package Manager (npm) is installed by running the command: npm -version
+ 2. Install http-server library using NPM by running the following command: npm i -g http-server
+ 3. To run the Web application use the following command: http-server
+
+ Instuctions to run Web application in Visual Studio Code
+ 1. To be done...
 
  Usage
  The application can be used for general task management activities like create, edit or delete tasks. 
