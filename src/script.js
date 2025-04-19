@@ -27,22 +27,40 @@ function addTask() {
     completeButton.innerText = "OK";
     completeButton.className = "task-button";
     completeButton.onclick = function () {
+        // Toggle completed class for immediate UI update
         taskItem.classList.toggle("completed");
-        // add log to test function
+
+        // Fetch task id to update the task status in the backend
         const id = taskItem.dataset.id;
         if (!id) return;
 
+        // Update completion status in the backend
         fetch(`http://localhost:3000/tasks/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 completed: taskItem.classList.contains("completed")
             })
-            .then(() => {
-                taskItem.remove();
-            })
         })
-        .catch(err => console.error("Error updating completion:", err));
+        .then(() => {
+            // If the task is marked as completed, remove it from the UI and DB
+            if (taskItem.classList.contains("completed")) {
+                taskItem.remove();  // Remove task from UI immediately
+                // Delete completed task from the database
+                fetch(`http://localhost:3000/tasks/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(`Task ${id} completed and deleted from DB.`);
+                    } else {
+                        console.error("Failed to delete completed task from DB.");
+                    }
+                })
+                .catch(err => console.error("Error deleting completed task from DB:", err));
+            }
+        })
+        .catch(err => console.error("Error updating task:", err));
     };
     /* ===== END UPDATED SECTION ===== */
 
@@ -162,6 +180,7 @@ function showTaskFromJsonServer(task) {
                 completed: !task.completed
             })
         })
+        
         .then(() => {
             taskItem.classList.toggle("completed");
             if (taskItem.classList.contains("completed")) {
@@ -217,9 +236,13 @@ function showTaskFromJsonServer(task) {
 }
 
 window.addEventListener("load", () => {
+    // First, fetch all tasks from the database
     fetch('http://localhost:3000/tasks')
         .then(response => response.json())
-        .then(tasks => tasks.forEach(showTaskFromJsonServer))
+        .then(tasks => {
+            // For each task in the database, show it
+            tasks.forEach(showTaskFromJsonServer);
+        })
         .catch(err => console.error("Error loading tasks:", err));
 });
 
