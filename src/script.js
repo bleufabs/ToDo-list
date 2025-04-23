@@ -27,11 +27,14 @@ function addTask() {
     completeButton.innerText = "OK";
     completeButton.className = "task-button";
     completeButton.onclick = function () {
+        // Toggle completed class for immediate UI update
         taskItem.classList.toggle("completed");
 
+        // Fetch task id to update the task status in the backend
         const id = taskItem.dataset.id;
         if (!id) return;
 
+        // Update completion status in the backend
         fetch(`http://localhost:3000/tasks/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -39,7 +42,25 @@ function addTask() {
                 completed: taskItem.classList.contains("completed")
             })
         })
-        .catch(err => console.error("Error updating completion:", err));
+        .then(() => {
+            // If the task is marked as completed, remove it from the UI and DB
+            if (taskItem.classList.contains("completed")) {
+                taskItem.remove();  // Remove task from UI immediately
+                // Delete completed task from the database
+                fetch(`http://localhost:3000/tasks/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(`Task ${id} completed and deleted from DB.`);
+                    } else {
+                        console.error("Failed to delete completed task from DB.");
+                    }
+                })
+                .catch(err => console.error("Error deleting completed task from DB:", err));
+            }
+        })
+        .catch(err => console.error("Error updating task:", err));
     };
     /* ===== END UPDATED SECTION ===== */
 
@@ -146,22 +167,30 @@ function showTaskFromJsonServer(task) {
     const taskButtons = document.createElement("div");
     taskButtons.className = "task-buttons";
 
-    //Reapplies and updates completed state on click
+    
+    // OK button deletes task immediately
     const completeButton = document.createElement("button");
     completeButton.innerText = "OK";
     completeButton.className = "task-button";
     completeButton.onclick = function () {
-        taskItem.classList.toggle("completed");
-
         fetch(`http://localhost:3000/tasks/${task.id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                completed: taskItem.classList.contains("completed")
+                completed: !task.completed
             })
         })
-        .catch(err => console.error("Error updating completion:", err));
+        
+        .then(() => {
+            taskItem.classList.toggle("completed");
+            if (taskItem.classList.contains("completed")) {
+                taskItem.remove();
+                console.log(`Task ${task.id} completed and deleted.`);
+            }
+        })
+        .catch(err => console.error("Error updating task:", err));
     };
+
 
     // Edit button
     const editButton = document.createElement("button");
@@ -206,7 +235,18 @@ function showTaskFromJsonServer(task) {
     document.getElementById("task-display").appendChild(taskItem);
 }
 
-//Allows for saved changes
+window.addEventListener("load", () => {
+    // First, fetch all tasks from the database
+    fetch('http://localhost:3000/tasks')
+        .then(response => response.json())
+        .then(tasks => {
+            // For each task in the database, show it
+            tasks.forEach(showTaskFromJsonServer);
+        })
+        .catch(err => console.error("Error loading tasks:", err));
+});
+
+/*Allows for saved changes
 document.getElementById("save-completed").addEventListener("click", () => {
     const taskItems = document.querySelectorAll(".task-item.completed");
 
@@ -227,4 +267,4 @@ document.getElementById("save-completed").addEventListener("click", () => {
         })
         .catch(err => console.error("Error deleting task:", err));
     });
-});
+}); */
