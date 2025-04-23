@@ -7,10 +7,11 @@ This application has been designed to assist people with organizing and managing
  Front-End is developed utilizing HTML, CSS, and JavaScript. 
  Back-End is developed utilizing Java.
 
- Instructions to run the Web application in GitHub Codespaces
- 1. Ensure Node Package Manager (npm) is installed by running the command: npm -version
- 2. Install http-server library using NPM by running the following command: npm i -g http-server
- 3. To run the Web application use the following command: http-server
+ Instructions to run the Web application in GitHub Codespaces or Visual Studio Code on MacOS
+ 1. Change directory into the root folder by running the following command in the correct directory: cd task-flow-manager
+ 2. Ensure Node Package Manager (npm) is installed by running the command: npm -version
+ 3. Install http-server library using NPM by running the following command: npm i http-server
+ 4. To run the Web application use the following command: node_modules/http-server/bin/http-server and enter http://127.0.0.1:8080/src/ in your Web browser
 
  Instuctions to run Web application in Visual Studio Code
  1. To be done...
