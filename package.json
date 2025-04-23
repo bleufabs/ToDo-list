@@ -1,0 +1,27 @@
+{
+  "name": "task-flow-manager",
+  "version": "1.0.0",
+  "description": "[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/8-Y6obCV)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:api": "json-server --watch .vscode/db.json --port 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alamo-edu-drp/task-flow-manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alamo-edu-drp/task-flow-manager/issues"
+  },
+  "homepage": "https://github.com/alamo-edu-drp/task-flow-manager#readme",
+  "devDependencies": {
+    "json-server": "^1.0.0-beta.3"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
