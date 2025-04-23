@@ -1,204 +1,273 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 * {
-	margin: 0;
-	padding: 0;
-	font-family: Arial, sans-serif;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
 .container {
-	width: 100%;
-	min-height: 100vh;
-	background: rgb(87, 87, 151); 
-	padding: 12px;
+  width: 100%;
+  min-height: 100vh;
+  background: rgb(87, 87, 151);
+  padding: 12px;
 }
 
 .taskflow-manager {
-	width: 100%;
-	max-width: 500px;
-	background: rgba(244, 241, 221, 0.948);
-	margin: 100px auto 30px; 
-	padding: 50px 40px 80px; 
-	border: 2px solid black;
-	border-radius: 15px;
-	box-shadow: 0 0 10px rgb(255, 255, 255);
+  width: 100%;
+  max-width: 500px;
+  background: rgba(244, 241, 221, 0.948);
+  margin: 100px auto 30px;
+  padding: 50px 40px 80px;
+  border: 2px solid black;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgb(255, 255, 255);
 }
+
+.taskflow-manager,
+.error-message {
+  text-align: center;
+}
+
+#error-message {
+  color: red;
+  margin-top: 5px;
+  height: 20px;
+}
+
 h2 {
-	color: rgb(87, 87, 151);
-	display:inline-block;
-	font-family: "Press Start 2P", system-ui;
-	font-weight: 400;
-	font-style: normal;
-	text-align: center;
-	font-size: 35px;
+  color: rgb(87, 87, 151);
+  display: inline-block;
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  font-size: 35px;
 }
 
 .center {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
-  }
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
 h3 {
-	font-family: "Press Start 2P", system-ui;
-	font-weight: 400;
-	font-style: normal;
-	font-size: 20px;
-	color:white;
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  color: white;
 }
 
 .row {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	background: #edeef0;
-	border-radius: 25px;
-	padding: 10px 20px 10px 20px;
-	margin-top: 25px;
-	margin-bottom: 25px; 
-	box-shadow: 0 0 5px rgba(0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #edeef0;
+  border-radius: 25px;
+  padding: 10px 20px 10px 20px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 0 5px rgba(0, 0, 0);
 }
 
 input {
-	flex: 1;
-	border: none;
-	outline-style: none;
-	background: transparent;
-	padding: 10px; 
-	font-weight: bold; 
+  flex: 1;
+  border: none;
+  outline-style: none;
+  background: transparent;
+  padding: 10px;
+  font-weight: bold;
 }
 
 .add-button {
-	border: none;
-	outline: none;
-	padding: 10px 20px;
-	margin-left: 10px;
-	background: hsl(260, 36%, 66%);
-	color: #fff;
-	font-size: 18px;
-	cursor: pointer;
-	border-radius: 40px;
-	transition: background 0.3s ease;
-	border: 0.5px solid black;
-  }
-  .add-button:hover {
-	color:rgb(87, 87, 151);
-	background: white;
-	border: 1px solid black;
-  }
-  
-  #priority-level {
-	appearance: none;
-	border: 1px solid gray;
-	font: inherit;
-	width: 100px;
-	padding: 10px 10px 10px 10px;
-	color: inherit;
-	border: 0.5px solid black;
-	border-radius: 0.25em;
-	box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
-	cursor: pointer;
-	option {
-	  color: whitesmoke;
-	  background-color: rgb(87, 87, 151);
-	}
-  }
-  
-  .task-item {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	border: 2px solid #ccc;
-	padding: 10px;
-	margin: 10px 0;
-	border-radius: 10px;
-	background-color: #fffbe6;
-	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .task-info {
-	flex: 1;
-	padding: 10px;
-  }
-  
-  .task-header {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 30px;
-	padding: 20px 20px 0px 20px;
-  }
-  
-  .task-display {
-	border: 2px solid black;
-	border-radius: 10px;
-	padding: 20px;
-	min-height: 150px;
-	margin: 0 auto;
-	width: 80%;
-	background-color: #fdfdfd;
-	box-shadow: 0 0 10px rgb(255, 255, 255);
-  }
-  .priority.low {
-	color: green;
-	font-size: 15px;
-  }
-  
-  .priority.medium {
-	color: orange;
-  }
-  
-  .priority.high {
-	color: red;
-	font-weight: bold;
-  }
-  
-  .task-button {
-	width: auto;
-	height: 30px;
-	border: .5px solid black;
-	background-color: #f0f0f0;
-	border-radius: 15px;
-	cursor: pointer;
-	font-size: 16px;
-	transition: background-color 0.3s;
-	padding: 5px 15px 15px 15px;
-	margin-right: 5px;
-  }
-  
-  .task-button:hover {
-	background-color: #ddd;
-  }
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  margin-left: 10px;
+  background: hsl(260, 36%, 66%);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 40px;
+  transition: background 0.3s ease;
+  border: 0.5px solid black;
+}
+.add-button:hover {
+  color: rgb(87, 87, 151);
+  background: white;
+  border: 1px solid black;
+}
 
-  .task-item.completed {
-	text-decoration: line-through;
-	opacity: 0.6;
-	background-color: #d4ffd4;
+#priority-level {
+  appearance: none;
+  border: 1px solid gray;
+  font: inherit;
+  width: 100px;
+  padding: 10px 10px 10px 10px;
+  color: inherit;
+  border: 0.5px solid black;
+  border-radius: 15px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  option {
+    color: whitesmoke;
+    background-color: rgb(87, 87, 151);
   }
+}
 
-  .task-item.completed .task-info {
-	color: #444;
-  }
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  background-color: #fffbe6;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+}
 
-  .task-item.completed .task-button {
-	background-color: #e2ffe2;
-  }
-  
+.task-info {
+  flex: 1;
+  padding: 10px;
+}
 
-  /*Added save button to allow changes of finishing tasks*/
-  .save-button {
-	background-color: #1d3557;
-	color: white;
-	padding: 10px 20px;
-	border-radius: 10px;
-	border: none;
-	cursor: pointer;
-	margin-top: 10px;
-	margin-left: 10px;
-	font-size: 16px;
+.task-header {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 20px 20px 0px 20px;
+}
+
+.task-display {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 20px;
+  min-height: 150px;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #fdfdfd;
+  box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+.priority.low {
+  color: green;
+  font-size: 15px;
+}
+
+.priority.medium {
+  color: orange;
+}
+
+.priority.high {
+  color: red;
+  font-weight: bold;
+}
+
+.task-button {
+  width: auto;
+  height: 30px;
+  border: 0.5px solid black;
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  padding: 5px 15px 15px 15px;
+  margin-right: 5px;
+}
+
+.task-button:hover {
+  background-color: #ddd;
+}
+
+/* new for json added*/
+.task-item.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+  background-color: #d4ffd4;
+}
+
+.task-item.completed .task-info {
+  color: #444;
+}
+
+.task-item.completed .task-button {
+  background-color: #e2ffe2;
+}
+
+/*Added save button to allow changes of finishing tasks*/
+.save-button {
+  background-color: #1d3557;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 16px;
 }
 
 .save-button:hover {
-	background-color: #457b9d;
+  background-color: #457b9d;
+}
+
+.modal-position {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.modal-content {
+  background: #575797;
+  background: radial-gradient(
+    circle,
+    rgba(87, 87, 151, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.modal-input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  font-size: 16px;
+  border: 2px solid grey;
+  background-color: #edeef0;
+  box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+.modal-save-button,
+.modal-cancel-button {
+  padding: 8px 16px;
+  margin: 0 10px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+}
+
+.modal-save-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.modal-cancel-button {
+  background-color: #f44336;
+  color: white;
 }
