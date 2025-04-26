@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="signup.css" />
+</head>
+
+<body>
+
+    <div class="home-container">
+
+        <header class="site-header">
+            <div class="logo">
+                <a href="home.html">
+                    <img src="media/taskflowlogopix.PNG" alt="Task Icon" class="logo-icon glitch">
+                </a>
+                <h5 class="headTitle">Task Flow Manager</h5>
+            </div>
+
+            <nav class="navButtons">
+                <a href="login.html"><button class="btn liquid">Login</button></a>
+                <a href="home.html"><button class="btn liquid">Home</button></a>
+            </nav>
+        </header>
+
+        <section class="home-header">
+            <h1 class="cursor typewriter-animation">Task Flow Manager</h1>
+            <h4>Plan. Prioritize. Progress.</h4>
+        </section>
+
+        <div class="signup-container">
+            <h2>Sign Up</h2>
+            <form class="signup-form" onsubmit="return mockSignup()">
+                <input type="text" id="username" placeholder="Username" required />
+                <input type="password" id="password" placeholder="Password" required />
+                <input type="password" id="confirm-password" placeholder="Confirm Password" required />
+                <button type="submit">Sign Up</button>
+
+                <p class="signup-note">Already have an account? <a href="login.html">Login</a></p>
+            </form>
+            <p class="signup-note" id="signup-message"></p>
+        </div>
+
+    </div>
+
+    <footer class="home-footer">
+        <p>&copy; 2025 Task Flow Manager. All rights reserved.</p>
+    </footer>
+
+    <script src="signup.js"></script>
+
+</body>
+
+</html>
