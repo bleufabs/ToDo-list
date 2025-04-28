@@ -10,6 +10,12 @@ function mockSignup() {
 
     message.classList.remove("success", "error");
 
+    if (!username || !password) {
+        message.textContent = "Please fill in all fields.";
+        message.classList.add("error");
+        return false;
+    }
+
     if (password !== confirmPassword) {
         message.textContent = "Passwords do not match!";
         message.classList.add("error");
@@ -18,13 +24,42 @@ function mockSignup() {
         correctPasswordInput.value = "";
         return false;
     }
+    
+    fetch('http://localhost:3000/users?username=${encodeURIComponent(username)}')
+        .then(response => response.json())
+        .then(users => {
+            if (users.length > 0) {
+                message.textContent = "Username already exists!";
+                message.classList.add("error");
+            } else {
+                //post
+                fetch('http://localhost:3000/users', {
+                    method: 'POST',
+                    headers: {'Content-Type' : 'application/json'},
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Signup failed');
+                    }
+                    message.textContent = "Signup successful!";
+                    message.classList.add("success");
 
-    message.textContent = "Sign up successful!";
-    message.classList.add("success");
-
-    setTimeout(() => {
-        window.location.href = "login.html";
-    }, 1000);
-
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 1500);
+                })
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            message.textContent = "Error checking username.";
+            message.classList.add("error");
+        });
+    
     return false;
+    
 }
