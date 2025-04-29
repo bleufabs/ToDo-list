@@ -29,23 +29,41 @@ function addTask() {
   
     /* ===== UPDATED: Complete button toggles completed state & persists to JSON Server ===== */
     const completeButton = document.createElement("button");
-    completeButton.innerText = "OK";
-    completeButton.className = "task-button";
-    completeButton.onclick = function () {
-        taskItem.classList.toggle("completed");
-  
-        const id = taskItem.dataset.id;
-        if (!id) return;
-  
-        fetch(`http://localhost:3000/tasks/${id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                completed: taskItem.classList.contains("completed")
+completeButton.innerText = "OK";
+completeButton.className = "task-button";
+
+completeButton.onclick = function () {
+    taskItem.classList.toggle("completed");
+
+    const id = taskItem.dataset.id;
+    if (!id) return;
+
+    const isCompleted = taskItem.classList.contains("completed");
+
+    fetch(`http://localhost:3000/tasks/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ completed: isCompleted })
+    })
+    .then(() => {
+        if (isCompleted) {
+            // Delete task after marking it completed
+            fetch(`http://localhost:3000/tasks/${id}`, {
+                method: 'DELETE'
             })
-        })
-        .catch(err => console.error("Error updating completion:", err));
-    };
+            .then(res => {
+                if (res.ok) {
+                    taskItem.remove(); // Remove from the UI
+                    console.log(`Task ${id} deleted after completion`);
+                } else {
+                    console.error(`Failed to delete task ${id}`);
+                }
+            });
+        }
+    })
+    .catch(err => console.error("Error updating completion:", err));
+};
+    
     /* ===== END UPDATED SECTION ===== */
   
   // Edit button
@@ -202,23 +220,6 @@ function addTask() {
     const taskButtons = document.createElement("div");
     taskButtons.className = "task-buttons";
   
-    //Reapplies and updates completed state on click
-    const completeButton = document.createElement("button");
-    completeButton.innerText = "OK";
-    completeButton.className = "task-button";
-    completeButton.onclick = function () {
-        taskItem.classList.toggle("completed");
-  
-        fetch(`http://localhost:3000/tasks/${task.id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                completed: taskItem.classList.contains("completed")
-            })
-        })
-        .catch(err => console.error("Error updating completion:", err));
-    };
-  
     // Edit button
     const editButton = document.createElement("button");
     editButton.innerText = "Edit";
@@ -262,7 +263,7 @@ function addTask() {
     document.getElementById("task-display").appendChild(taskItem);
   }
   
-  //Allows for saved changes
+  /*
   document.getElementById("save-completed").addEventListener("click", () => {
     const taskItems = document.querySelectorAll(".task-item.completed");
   
@@ -284,3 +285,4 @@ function addTask() {
         .catch(err => console.error("Error deleting task:", err));
     });
   });
+  */
