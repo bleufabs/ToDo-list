@@ -1,3 +1,33 @@
+let badge = 0;
+let badgeDisplayElement ="Badges: "+badge;
+document.addEventListener("DOMContentLoaded", function(){
+    initComponent();
+});
+function initComponent(){
+    const element = document.getElementById("badge");
+    element.textContent = badgeDisplayElement;
+
+}
+function updateBadge(){
+    let element = document.getElementById("badge");
+    element.textContent = "Badge: "+badge;
+}
+function addBadge(priority, completed){
+    if (completed){
+        if(priority == "high"){
+            badge +=3;
+        
+        }else if (priority == "medium"){
+            badge +=2;
+        }else{
+            badge++;
+        }
+    }
+    if (badgeDisplayElement) {
+            badgeDisplayElement.textContent = "Badge: " + badge;
+        }
+}
+
 function addTask() {
     const inputBox = document.getElementById("input-box");
     const taskText = inputBox.value.trim();
@@ -32,8 +62,16 @@ function addTask() {
     completeButton.innerText = "OK";
     completeButton.className = "task-button";
     completeButton.onclick = function () {
+
+       
+        // Toggle completed class for immediate UI update
         taskItem.classList.toggle("completed");
-  
+
+        addBadge(priority,taskItem.classList.contains("completed"));
+        updateBadge();
+
+
+        // Fetch task id to update the task status in the backend
         const id = taskItem.dataset.id;
         if (!id) return;
   
@@ -207,8 +245,7 @@ function addTask() {
     completeButton.innerText = "OK";
     completeButton.className = "task-button";
     completeButton.onclick = function () {
-        taskItem.classList.toggle("completed");
-  
+       addBadge(task);
         fetch(`http://localhost:3000/tasks/${task.id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
