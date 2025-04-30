@@ -1,3 +1,33 @@
+let badge = 0;
+let badgeDisplayElement ="Badges: "+badge;
+document.addEventListener("DOMContentLoaded", function(){
+    initComponent();
+});
+function initComponent(){
+    const element = document.getElementById("badge");
+    element.textContent = badgeDisplayElement;
+
+}
+function updateBadge(){
+    let element = document.getElementById("badge");
+    element.textContent = "Badge: "+badge;
+}
+function addBadge(priority, completed){
+    if (completed){
+        if(priority == "high"){
+            badge +=3;
+        
+        }else if (priority == "medium"){
+            badge +=2;
+        }else{
+            badge++;
+        }
+    }
+    if (badgeDisplayElement) {
+            badgeDisplayElement.textContent = "Badge: " + badge;
+        }
+}
+
 function addTask() {
     const inputBox = document.getElementById("input-box");
     const taskText = inputBox.value.trim();
@@ -29,27 +59,28 @@ function addTask() {
   
     /* ===== UPDATED: Complete button toggles completed state & persists to JSON Server ===== */
     const completeButton = document.createElement("button");
-completeButton.innerText = "OK";
-completeButton.className = "task-button";
 
-completeButton.onclick = function () {
-    taskItem.classList.toggle("completed");
+    completeButton.innerText = "OK";
+    completeButton.className = "task-button";
+    completeButton.onclick = function () {
 
-    const id = taskItem.dataset.id;
-    if (!id) return;
+       
+        // Toggle completed class for immediate UI update
+        taskItem.classList.toggle("completed");
 
-    const isCompleted = taskItem.classList.contains("completed");
+        addBadge(priority,taskItem.classList.contains("completed"));
+        updateBadge();
 
-    fetch(`http://localhost:3000/tasks/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ completed: isCompleted })
-    })
-    .then(() => {
-        if (isCompleted) {
-            // Delete task after marking it completed
-            fetch(`http://localhost:3000/tasks/${id}`, {
-                method: 'DELETE'
+
+        // Fetch task id to update the task status in the backend
+        const id = taskItem.dataset.id;
+        if (!id) return;
+  
+        fetch(`http://localhost:3000/tasks/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                completed: taskItem.classList.contains("completed")
             })
             .then(res => {
                 if (res.ok) {
@@ -219,6 +250,22 @@ completeButton.onclick = function () {
   
     const taskButtons = document.createElement("div");
     taskButtons.className = "task-buttons";
+
+    //Reapplies and updates completed state on click
+    const completeButton = document.createElement("button");
+    completeButton.innerText = "OK";
+    completeButton.className = "task-button";
+    completeButton.onclick = function () {
+       addBadge(task);
+        fetch(`http://localhost:3000/tasks/${task.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                completed: taskItem.classList.contains("completed")
+            })
+        })
+        .catch(err => console.error("Error updating completion:", err));
+    };
   
     // Edit button
     const editButton = document.createElement("button");
