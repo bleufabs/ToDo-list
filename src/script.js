@@ -58,29 +58,38 @@ function addTask() {
     taskButtons.className = "task-buttons";
   
     /* ===== UPDATED: Complete button toggles completed state & persists to JSON Server ===== */
-    const completeButton = document.createElement("button");
-    completeButton.innerText = "OK";
-    completeButton.className = "task-button";
-    completeButton.onclick = function () {
-
-       
-        // Toggle completed class for immediate UI update
+        const completeButton = document.createElement("button");
+        completeButton.innerText = "OK";
+        completeButton.className = "task-button";
+    
+        completeButton.onclick = function () {
         taskItem.classList.toggle("completed");
-
-        addBadge(priority,taskItem.classList.contains("completed"));
-        updateBadge();
-
-
-        // Fetch task id to update the task status in the backend
+    
         const id = taskItem.dataset.id;
         if (!id) return;
-  
+    
+        const isCompleted = taskItem.classList.contains("completed");
+    
         fetch(`http://localhost:3000/tasks/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                completed: taskItem.classList.contains("completed")
-            })
+            body: JSON.stringify({ completed: isCompleted })
+        })
+        .then(() => {
+            if (isCompleted) {
+                // Delete task after marking it completed
+                fetch(`http://localhost:3000/tasks/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(res => {
+                    if (res.ok) {
+                        taskItem.remove(); // Remove from the UI
+                        console.log(`Task ${id} deleted after completion`);
+                    } else {
+                        console.error(`Failed to delete task ${id}`);
+                    }
+                });
+            }
         })
         .catch(err => console.error("Error updating completion:", err));
     };
@@ -223,7 +232,7 @@ function addTask() {
   });
   
   // Load tasks from db.json and render them
-  function showTaskFromJsonServer(task) {
+    function showTaskFromJsonServer(task) {
     const taskItem = document.createElement("div");
     taskItem.className = "task-item";
     taskItem.dataset.id = task.id;
@@ -245,7 +254,8 @@ function addTask() {
     completeButton.innerText = "OK";
     completeButton.className = "task-button";
     completeButton.onclick = function () {
-       addBadge(task);
+        taskItem.classList.toggle("completed");
+    
         fetch(`http://localhost:3000/tasks/${task.id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -253,8 +263,25 @@ function addTask() {
                 completed: taskItem.classList.contains("completed")
             })
         })
+        .then(() => {
+            if (taskItem.classList.contains("completed")) {
+                addBadge(task.priority, true); // Add badge if completed
+                fetch(`http://localhost:3000/tasks/${task.id}`, {
+                    method: 'DELETE'
+                })
+                .then(res => {
+                    if (res.ok) {
+                        taskItem.remove(); // Remove from UI
+                        console.log(`Task ${task.id} deleted after completion`);
+                    } else {
+                        console.error(`Failed to delete task ${task.id}`);
+                    }
+                });
+            }
+        })
         .catch(err => console.error("Error updating completion:", err));
     };
+    
   
     // Edit button
     const editButton = document.createElement("button");
@@ -299,7 +326,20 @@ function addTask() {
     document.getElementById("task-display").appendChild(taskItem);
   }
   
-  //Allows for saved changes
+  document.addEventListener("DOMContentLoaded", function () {
+    initComponent();
+    loadTasksFromServer();
+});
+
+function loadTasksFromServer() {
+    fetch('http://localhost:3000/tasks')
+        .then(res => res.json())
+        .then(tasks => {
+            tasks.forEach(task => showTaskFromJsonServer(task));
+        })
+        .catch(err => console.error("Failed to load tasks:", err));
+}
+  /*Allows for saved changes
   document.getElementById("save-completed").addEventListener("click", () => {
     const taskItems = document.querySelectorAll(".task-item.completed");
   
@@ -321,3 +361,4 @@ function addTask() {
         .catch(err => console.error("Error deleting task:", err));
     });
   });
+  */
