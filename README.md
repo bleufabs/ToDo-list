@@ -17,11 +17,18 @@ This application has been designed to assist people with organizing and managing
  6. Start the server in the terminal: npm run start:api
  7. Should show Index http://localhost:3000/ Static files: Serving ./public directory if it exists Endpoints: http://localhost:3000/tasks http://localhost:3000/users We have 2 end points listed users and task
  8. Go to the Web browser and enter: http://127.0.0.1:8080/src/
+ 6. Go to the Web browser and enter: http://127.0.0.1:8080/src/
  
  Usage
  The application can be used for general task management activities like create, edit or delete tasks. 
+
 
  ![Screenshot of the app](CreateTask.png)
 
  Future Developments
  We plan on developing this application to support a group,  primarily targeting. project managers, teachers and parents to assign tasks to their members and improve accountability. 
+ # Add snippets of create task here
+
+ Future Developments
+ We plan on developing this application to support a group,  primarily targeting. project managers, teachers and parents to assign tasks to their members and improve accountability. 
+

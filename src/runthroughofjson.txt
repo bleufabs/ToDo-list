@@ -1,0 +1,11 @@
+run through of db.json
+
+Task gets added
+----json gets updated with unique string ID
+----json gets updated with task name
+----json gets updated with task priority
+----json gets updated with completion status
+--------Completion status determines if task is deleted when changes are saved
+------------When a task is deleted, whether from saved changes or deletion, json is also removed
+
+Deleted tasks are deleted instantaneously, while completed tasks are deleted when changes are saved
