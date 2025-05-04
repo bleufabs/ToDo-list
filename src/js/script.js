@@ -1,31 +1,31 @@
 let badge = 0;
-let badgeDisplayElement ="Badges: "+badge;
-document.addEventListener("DOMContentLoaded", function(){
+let badgeDisplayElement;
+document.addEventListener("DOMContentLoaded", function () {
     initComponent();
 });
-function initComponent(){
-    const element = document.getElementById("badge");
-    element.textContent = badgeDisplayElement;
 
+function initComponent() {
+    badgeDisplayElement = document.getElementById("badge");
+    updateBadge();
 }
-function updateBadge(){
-    let element = document.getElementById("badge");
-    element.textContent = "Badge: "+badge;
-}
-function addBadge(priority, completed){
-    if (completed){
-        if(priority == "high"){
-            badge +=3;
-        
-        }else if (priority == "medium"){
-            badge +=2;
-        }else{
-            badge++;
-        }
-    }
+
+function updateBadge() {
     if (badgeDisplayElement) {
-            badgeDisplayElement.textContent = "Badge: " + badge;
+        badgeDisplayElement.textContent = "Badges: " + badge;
+    }
+}
+
+function addBadge(priority, completed) {
+    if (completed) {
+        if (priority === "high") {
+            badge += 3;
+        } else if (priority === "medium") {
+            badge += 2;
+        } else {
+            badge += 1;
         }
+        updateBadge();
+    }
 }
 
 function addTask() {
