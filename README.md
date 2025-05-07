@@ -13,10 +13,10 @@ This application has been designed to assist people with organizing and managing
  2. Ensure Node Package Manager (npm) is installed by running the command: npm -version
  3. If the npm command is not found, install nodejs at http://nodejs.org
  4. Install dependencies listed in package.json using NPM by running the following command: npm install
- 5. To run the Web application, use the following command: node_modules/http-server/bin/http-server
- 6. Start the server in the terminal: npm run start:api
+ 5. To start the Web application, use the following command: npm run start:web
+ 6. Optionally, to start the Mock server, use the following command: npm run start:api
  7. Should show Index http://localhost:3000/ Static files: Serving ./public directory if it exists Endpoints: http://localhost:3000/tasks http://localhost:3000/users We have 2 end points listed users and task
- 8. Go to the Web browser and enter: http://127.0.0.1:8080/src/
+ 8. Go to the Web browser and enter: http://127.0.0.1:8080/src/pages/
  
  Usage
  The application can be used for general task management activities like create, edit, or delete tasks. 
