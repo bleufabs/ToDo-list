@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:api": "json-server --watch .vscode/db.json --port 3000"
+    "start:api": "json-server --watch src/mocks/db.json --port 3000"
   },
   "repository": {
     "type": "git",
