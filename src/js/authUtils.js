@@ -1,4 +1,4 @@
-export async function hashPassword(password) {
+window.hashPassword = async function(password) {
     const encoder = new TextEncoder();
     const data = encoder.encode(password);
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);

@@ -24,8 +24,9 @@ function mockSignup() {
         correctPasswordInput.value = "";
         return false;
     }
-    
-    fetch('http://localhost:3000/users?username=${encodeURIComponent(username)}')
+
+    hashPassword(password).then((hashedPassword) => {
+        fetch('http://localhost:3000/users?username=${encodeURIComponent(username)}')
         .then(response => response.json())
         .then(users => {
             if (users.length > 0) {
@@ -38,7 +39,7 @@ function mockSignup() {
                     headers: {'Content-Type' : 'application/json'},
                     body: JSON.stringify({
                         username: username,
-                        password: password
+                        password: hashedPassword
                     })
                 })
                 .then(response => {
@@ -59,6 +60,7 @@ function mockSignup() {
             message.textContent = "Error checking username.";
             message.classList.add("error");
         });
+    })
     
     return false;
     
