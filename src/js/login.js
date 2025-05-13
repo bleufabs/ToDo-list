@@ -27,7 +27,7 @@ function mockLogin() {
                     message.textContent = "Login successful!";
                     message.classList.add("success");
 
-                    const loginUrl = `index.html?username=${encodeURIComponent(userName)}&password=${encodeURIComponent(passWord)}`;
+                    const loginUrl = `dashboard.html?username=${encodeURIComponent(userName)}&password=${encodeURIComponent(passWord)}`;
 
                     setTimeout(() => {
                         window.location.href = loginUrl;
