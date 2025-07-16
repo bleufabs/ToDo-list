@@ -1,4 +1,17 @@
 {
-  "tasks": [],
-  "users": []
+  "tasks": [
+    {
+      "id": "5c50",
+      "title": "test",
+      "priority": "low",
+      "completed": false
+    }
+  ],
+  "users": [
+    {
+      "id": "ff97",
+      "username": "bleufabs",
+      "password": "1714e0fff39aab9ae3707c6044df8d1b23a861b6da8ecb7529b0df3238991888"
+    }
+  ]
 }
